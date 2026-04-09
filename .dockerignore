@@ -1,0 +1,13 @@
+# applies to both frontend/ and backend/ contexts
+node_modules
+npm-debug.log*
+.env
+.env.*
+build
+dist
+.git
+.gitignore
+README.md
+*.md
+.DS_Store
+Thumbs.db
