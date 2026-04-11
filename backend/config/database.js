@@ -20,7 +20,7 @@ const pool = mysql.createPool({
 // Test connection
 const testConnection = async () => {
     try {
-        const [rows] = await pool.execute('SELECT NOW() as current_time');
+        const [rows] = await pool.execute('SELECT NOW() as `current_time`');
         console.log('✓ Database connected successfully:', rows[0].current_time);
     } catch (error) {
         console.error('✗ Database connection failed:', error.message);
