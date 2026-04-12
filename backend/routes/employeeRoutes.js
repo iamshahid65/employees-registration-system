@@ -4,14 +4,12 @@ const { validateEmployee, validateEmployeeId, handleValidationErrors } = require
 
 const router = express.Router();
 
+// Special routes (must come before :id routes)
+router.get('/stats', EmployeeController.getStats);
+router.get('/departments', EmployeeController.getDepartments);
+
 // Get all employees (with optional filters)
 router.get('/', EmployeeController.getAllEmployees);
-
-// Get statistics
-router.get('/stats', EmployeeController.getStats);
-
-// Get departments
-router.get('/departments', EmployeeController.getDepartments);
 
 // Get single employee
 router.get('/:id', validateEmployeeId, handleValidationErrors, EmployeeController.getEmployeeById);
