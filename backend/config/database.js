@@ -1,5 +1,9 @@
 const sql = require('mssql');
 require('dotenv').config();
+const isProduction = process.env.NODE_ENV === 'production';
+const forceEncrypt = process.env.DB_ENCRYPT === 'true' || isProduction;
+const isAzureSQL = process.env.DB_HOST?.includes('.database.windows.net') || 
+                   process.env.DB_HOST?.includes('.database.secure.windows.net');
 
 const config = {
     server: process.env.DB_HOST || 'localhost',
@@ -11,8 +15,8 @@ const config = {
         type: 'default'
     },
     options: {
-        encrypt: process.env.NODE_ENV === 'production', // Required for Azure SQL
-        trustServerCertificate: process.env.NODE_ENV !== 'production',
+        encrypt: forceEncrypt || isAzureSQL || true, // Default to true for safety
+        trustServerCertificate: process.env.DB_TRUST_CERT === 'true' || !isProduction,
         connectTimeout: 30000,
         requestTimeout: 30000,
         enableArithAbort: true
